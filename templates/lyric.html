@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/rabbit-lyrics" type="text/javascript"></script>
+</head>
+<body>
+ 
+    <audio src="/static/songs/02 YAHWEH YAHWEH, I Worship YOU.mp3" controls id="audio-1" >
+    </audio>
+                                            
+    <div class="rabbit-lyrics" data-media="#audio-1">
+    [00:05.00] This is a little song
+    [00:07.00] The song that nobody knows
+    [00:09.00] The song that nobody knows
+    [00:11.00] The song that nobody knows
+    [00:13.00] The song that nobody knows
+    ...
+    </div>
+    <script>
+        new RabbitLyrics({
+    element: document.findElementById('lyrics-1'),
+    mediaElement: document.findElementById('audio-1')
+})
+    </script>
+</body>
+</html>

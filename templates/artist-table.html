@@ -1,0 +1,262 @@
+{% extends 'adminbase.html'%}
+{% block body%}
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top m-b-0">
+            <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
+                <div class="top-left-part"><a class="logo" href="index.html"><b><img src="static/admin/plugins/images/pixeladmin-logo.png" alt="home" /></b><span class="hidden-xs"><img src="../plugins/images/pixeladmin-text.png" alt="home" /></span></a></div>
+
+                <ul class="nav navbar-top-links navbar-right pull-right">
+                  <li>
+                    <a class="profile-pic" href="#"> <img src="static/album-art/{{profile[5]}}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{profile[1]}}</b> </a>
+                </li>
+                </ul>
+            </div>
+            <!-- /.navbar-header -->
+            <!-- /.navbar-top-links -->
+            <!-- /.navbar-static-side -->
+        </nav>
+        <!-- Left navbar-header -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+                <ul class="nav" id="side-menu">
+                  <li style="padding: 10px 0 0;">
+                    <a href="/dashboard" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="/profile" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
+                </li>
+                <li>
+                    <a href="/song-table" class="waves-effect"><i class="fa fa-music fa-fw" aria-hidden="true"></i><span class="hide-menu">Song</span></a>
+                </li>
+                <li>
+                    <a href="/artist-table" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Artist</span></a>
+                </li>
+                <li>
+                  <a href="/genre-table" class="waves-effect"><i class="fa fa-list fa-fw" aria-hidden="true"></i><span class="hide-menu">Genre</span></a>
+              </li>
+              <li>
+                <a href="/push" class="waves-effect"><i class="fa fa-bell fa-fw" aria-hidden="true"></i><span class="hide-menu">Notification</span></a>
+            </li>
+                    
+                </ul>
+                <div class="center p-20">
+                  <form action="/logout-admin" method="post">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                      <button type="submit" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Logout</button>
+                  </form>
+              </div>
+            </div>
+        </div>
+        <!-- Left navbar-header end -->
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Artist Table</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"> 
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                            <li class="active">Artist</li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /row -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            
+                            <div class="table-responsive">
+
+                                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_artist">Add Artist</button>
+                                    
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="add_artist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Add Artist</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <form action='/artist-post' method='post' enctype="multipart/form-data">
+                                              <div class="form-group row">
+                                                <label class="col-sm-6 col-form-label">Artist</label>
+                                                <div class="col-sm-6">
+                                                  <input class="form-control" name="artist" required>
+                                                </div>
+                                              </div>
+                                              <div class="form-group row">
+                                                <label class="col-sm-6 col-form-label">Image</label>
+                                                <div class="col-sm-6">
+                                                  <input class="form-control" type='file' name="image" required>
+                                                </div>
+                                              </div>
+                                          </div>
+                                          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success">Submit</button>
+                                          </div>
+                                          </form>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                
+                                
+                                <br><br>
+                                <table class="table display" id="artist">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">Image</th>
+                                      <th scope="col">Artist</th>
+                                      <th scope="col">Total</th>
+                                      <th scope="col">Edit</th>
+                                      <th scope="col">Delete</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    
+                                        {% for row in result %}
+                                        <tr>
+                                            <th scope="row">{{loop.index}}</th>
+                                            <td><img src="static/album-art/{{row.3}}" alt="user-img" width="36" class="img-circle"></td>
+                                            <td>{{row.1}}</td>
+                                            <td>{{row.2}}</td>
+                                            <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#edit_artist_{{row.0}}">Edit</button></td>
+                                            
+                                            
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="edit_artist_{{row.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                              <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Edit Artist</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                      <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                  </div>
+                                                  <form action="/artist-update/{{row.0}}" method='post' enctype="multipart/form-data">
+                                                  <div class="modal-body">
+                                                      <div class="form-group row">
+                                                        <label class="col-sm-6 col-form-label">Artist</label>
+                                                        <div class="col-sm-6">
+                                                          <input class="form-control" name="artist" value="{{row.1}}">
+                                                        </div>
+                                                      </div>
+                                                      <div class="form-group row">
+                                                        <label class="col-sm-6 col-form-label">Image</label>
+                                                        <div class="col-sm-6">
+                                                          <input class="form-control" type='file' name="image" >
+                                                        </div>
+                                                      </div>
+                                                      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-success">Update</button>
+                                                  </div>
+                                                  </form>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- End Modal -->
+                                            
+                                            
+                                            <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_artist_{{row.0}}">Delete</button></td>
+                                            
+                                            
+                                            <!-- Modal -->
+                                                <div class="modal fade" id="delete_artist_{{row.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                  <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                      <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Book</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                      </div>
+                                                      <form action="/artist-delete/{{row.0}}" method='post'>
+                                                      <div class="modal-body">
+                                                          <div class="form-group row">
+                                                            <label class="col-sm-12 col-form-label">Do you want to delete this Artist <span style='font-weight:bold;color:red'>{{row.1}}</span> ?</label>				
+                                                          </div>			
+                                                      </div>
+                                                      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                      </div>
+                                                      </form>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            <!-- End Modal -->
+                                            
+                                            
+                                        </tr>	
+                                        {% endfor %}
+                                    
+                                  </tbody>
+                                </table>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2020 &copy; Musixcloud</footer>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <script type="text/javascript">
+      var csrf_token = "{{ csrf_token() }}";
+    
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", csrf_token);
+              }
+          }
+      });
+    </script>
+    <script >
+      // Call the dataTables jQuery plugin
+    $(document).ready(function() {
+      $('#artist').DataTable();
+    });
+    
+    </script>
+  <!-- Menu Plugin JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
+  <!--slimscroll JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/jquery.slimscroll.js') }}"></script>
+  <!--Wave Effects -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/waves.js') }}"></script>
+  <!--Counter js -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/waypoints/lib/jquery.waypoints.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/counterup/jquery.counterup.min.js') }}"></script>
+  <!--Morris JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/raphael/raphael-min.js') }}"></script>
+ 
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/custom.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/dashboard1.js') }}"></script>
+
+
+
+    {%endblock%}
+

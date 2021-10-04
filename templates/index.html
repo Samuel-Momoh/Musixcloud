@@ -1,0 +1,117 @@
+{% extends 'base.html'%}
+{% block body%}
+<!-- <body class="body-hide"> -->
+        <!-- preloader -->
+        <div class="preloader-body" id="preloader-body">
+            <div class="preloader-container" >
+                <img src="static/logo.png" alt="" >
+            <div class="brand-name">
+                <h1 id="brand-text">MusixCloud</h1>
+            </div>
+            <div class="lds-facebook"><div></div><div></div><div></div></div>
+        </div>
+        </div>
+        <!-- End of preloader -->
+<header>
+    <div class="menu-button" id="menuBtn">
+        <i class="fa fa-bars"></i>
+    </div>
+<div class="logo" id="logo">
+    <img src="static/logo.png" alt="" srcset="" id="userImg" >
+   <span class="full">MusixCloud</span>
+</div>
+<div class="minsearchback" id="minsearchback"><i class="fa fa-chevron-left"></i></div>
+<div class="search" id="search"><input type="text" id="searchItem" placeholder="Enter Search..."><i class="fa fa-search" id="myBtn"></i></div>
+<div class="minsearch" id="minsearch"><i class="fa fa-search"></i></div>
+</header>
+<div class="container">
+    <div class="side-bar" id="sideBars">
+       <div class="app-buttons">
+        <a href="/"><div class="button active home-icon"> </div></a>
+        <a href="/artist"> <div class="button artist-icon"></div></a>
+        <a href="/genre"><div class="button genre-icon"></div></a>
+        <a href="/songs"> <div class="button song-icon"></div></a>
+       </div>
+       <div class="social-media">
+        <!-- <a href="genre.html"> <div class="social-button fb-icon"></div></a>
+           <a href="genre.html"> <div class="social-button tw-icon"> </div></a>-->
+           <a href="/users/profile">  <div class="user-img">
+               {% if 'user' in session %}
+            <img src="{{session.get('user')['picture']}}" alt="" srcset="" id="userImg" >
+            <input type="hidden" style="height: 0px;width: 0px;" id="username" value="{{session.get('user')['email']}}"> 
+            {% else %}
+            <img src="static/svg/user-profile-svgrepo-com (1).svg" alt="" srcset="" id="userImg" >
+            <input type="hidden" style="height: 0px;width: 0px;" id="username" > 
+            {% endif %}
+        </div></a> 
+        <div class="notification-button bell-icon" id="notify"></div>
+       </div>
+    </div>
+    <div class="content" id="content">
+        <h3 class="tittle">Trending Songs <span class="new">New</span></h3>
+<div class="trending">
+    {% for row in data: %}
+    <div class="trendin-item">
+        <div class="item-image">
+            <a href="/songs/{{row.0}}"><img src="static/album-art/{{row.8}}" alt=""></a>
+        </div>
+        <div class="details">
+            <div class="details-text">
+                <h2 style="margin-top: 0;">{{row.2}}</h2>
+                <p>{{row.1}}</p>
+            </div>
+            <div class="click">
+                <a href="static/songs/{{row.3}}" data-title="{{row.1}}-{{row.2}}" data-img="static/album-art/{{row.8}}" data-artist="{{row.2}}" data-name="{{row.1}}" data-genre="{{row.5}}" class="playBtn playbtnsvg" id="{{ loop.index-1 }}"> <div class="play"><div class="playarea"></div></div></a>
+              <a href="static/songs/{{row.3}}" download="{{row.2}}"> <div class="download downloadSong" data-song="{{row.0}}"><i class="fa fa-download"></i></div></a>
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+    
+</div>
+<!-- End of content -->
+    </div>
+
+<!-- End of container -->
+</div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <!-- Preloader -->
+    <div id="loader-wrapper" >
+      <div class="loader-body">
+        <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+  </div>
+     <!-- Modal content -->
+     <div class="modal-content" style="display: none;">
+       <div class="modal-header">
+           <div class="header-button close">
+              <i class="fa fa-close"></i>
+           </div>
+       </div>
+       <div class="search-query">
+          <div class="empty" style="display: none;"> 
+            <div class="not-found">
+  
+            </div>
+                <h2>No Such record found</h2>
+          </div>
+       </div>
+     </div>
+   
+   </div> 
+   <script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+  
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
+  </script>
+<script type="text/javascript" src="{{ url_for('static', filename='stickyjs/stickyapp.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" ></script>
+<script type="text/javascript" src="{{ url_for('static', filename='webpush/main.js') }}" ></script>
+{%endblock%}

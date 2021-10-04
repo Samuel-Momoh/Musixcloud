@@ -1,0 +1,149 @@
+{% extends 'adminbase.html'%}
+{% block body%}
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="cssload-speeding-wheel"></div>
+    </div>
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top m-b-0">
+           
+            <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
+                <div class="top-left-part"><a class="logo" href="index.html"><b><img src="static/admin/plugins/images/pixeladmin-logo.png" alt="home" /></b><span class="hidden-xs"><img src="static/plugins/images/pixeladmin-text.png" alt="home" /></span></a></div>
+               
+                <ul class="nav navbar-top-links navbar-right pull-right">
+                    <li>
+                        <a class="profile-pic" href="#"> <img src="static/album-art/{{profile[5]}}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{profile[1]}}</b> </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- /.navbar-header -->
+            <!-- /.navbar-top-links -->
+            <!-- /.navbar-static-side -->
+        </nav>
+        <!-- Left navbar-header -->
+        <div class="navbar-default sidebar" role="navigation">
+            <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+                <ul class="nav" id="side-menu">
+                    <li style="padding: 10px 0 0;">
+                        <a href="/dashboard" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
+                    </li>
+                    <li>
+                        <a href="/profile" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
+                    </li>
+                    <li>
+                        <a href="/song-table" class="waves-effect"><i class="fa fa-music fa-fw" aria-hidden="true"></i><span class="hide-menu">Song</span></a>
+                    </li>
+                    <li>
+                        <a href="/artist-table" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Artist</span></a>
+                    </li>
+                    <li>
+                        <a href="/genre-table" class="waves-effect"><i class="fa fa-list fa-fw" aria-hidden="true"></i><span class="hide-menu">Genre</span></a>
+                    </li>
+                    <li>
+                      <a href="/push" class="waves-effect"><i class="fa fa-bell fa-fw" aria-hidden="true"></i><span class="hide-menu">Notification</span></a>
+                  </li>
+                </ul>
+                <div class="center p-20">
+                    <form action="/logout-admin" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                        <button type="submit" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Left navbar-header end -->
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Dashboard</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"> 
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- row -->
+                <div class="row">
+                    <!--col -->
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="white-box" style="border-left: 4px solid #cbb2ae;">
+                            <div class="col-in row">
+                                <div class="col-md-6 col-sm-6 col-xs-6"> <i data-icon="E" class="linea-icon linea-basic"></i>
+                                    <h5 class="text-muted vb" id="songCount">SONGS</h5> </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3 class="counter text-right m-t-15 text-danger">{{counts[0][0]}}</h3> </div>
+                              
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <!--col -->
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="white-box" style="border-left: 4px solid #aec9cb;">
+                            <div class="col-in row">
+                                <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
+                                    <h5 class="text-muted vb">ARTISTS</h5> </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3 class="counter text-right m-t-15 text-megna">{{counts[2][0]}}</h3> </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <!--col -->
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="white-box" style="border-left: 4px solid #b5a8b9;">
+                            <div class="col-in row">
+                                <div class="col-md-6 col-sm-6 col-xs-6"> <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
+                                    <h5 class="text-muted vb">GENRES</h5> </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <h3 class="counter text-right m-t-15 text-primary">{{counts[1][0]}}</h3> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+           
+               
+           
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2020 &copy; Musixcloud</footer>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+    <script type="text/javascript">
+        var csrf_token = "{{ csrf_token() }}";
+      
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                }
+            }
+        });
+      </script>
+  <!-- Menu Plugin JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
+  <!--slimscroll JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/jquery.slimscroll.js') }}"></script>
+  <!--Wave Effects -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/waves.js') }}"></script>
+  <!--Counter js -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/waypoints/lib/jquery.waypoints.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/counterup/jquery.counterup.min.js') }}"></script>
+  <!--Morris JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/raphael/raphael-min.js') }}"></script>
+ 
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/custom.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/dashboard1.js') }}"></script>
+
+{%endblock%}

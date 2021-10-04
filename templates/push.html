@@ -1,0 +1,160 @@
+{% extends 'adminbase.html'%}
+{% block body%}
+    <!-- Preloader -->
+    <div class="preloader">
+      <div class="cssload-speeding-wheel"></div>
+  </div>
+  <div id="wrapper">
+      <!-- Navigation -->
+      <nav class="navbar navbar-default navbar-static-top m-b-0">
+          <div class="navbar-header"> <a class="navbar-toggle hidden-sm hidden-md hidden-lg " href="javascript:void(0)" data-toggle="collapse" data-target=".navbar-collapse"><i class="fa fa-bars"></i></a>
+              <div class="top-left-part"><a class="logo" href="index.html"><b><img src="static/admin/plugins/images/pixeladmin-logo.png" alt="home" /></b><span class="hidden-xs"><img src="static/admin/plugins/images/pixeladmin-text.png" alt="home" /></span></a></div>
+            
+              <ul class="nav navbar-top-links navbar-right pull-right">
+                
+                  <li>
+                      <a class="profile-pic" href="#"> <img src="static/album-art/{{profile[5]}}" alt="user-img" width="36" class="img-circle"><b class="hidden-xs">{{profile[1]}}</b> </a>
+                  </li>
+                  
+              </ul>
+          </div>
+          <!-- /.navbar-header -->
+          <!-- /.navbar-top-links -->
+          <!-- /.navbar-static-side -->
+      </nav>
+    <!-- Left navbar-header -->
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse slimscrollsidebar">
+            <ul class="nav" id="side-menu">
+              <li style="padding: 10px 0 0;">
+                <a href="/dashboard" class="waves-effect"><i class="fa fa-clock-o fa-fw" aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
+            </li>
+            <li>
+                <a href="/profile" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Profile</span></a>
+            </li>
+            <li>
+                <a href="/song-table" class="waves-effect"><i class="fa fa-music fa-fw" aria-hidden="true"></i><span class="hide-menu">Song</span></a>
+            </li>
+            <li>
+                <a href="/artist-table" class="waves-effect"><i class="fa fa-user fa-fw" aria-hidden="true"></i><span class="hide-menu">Artist</span></a>
+            </li>
+            <li>
+                <a href="/genre-table" class="waves-effect"><i class="fa fa-list fa-fw" aria-hidden="true"></i><span class="hide-menu">Genre</span></a>
+            </li>
+            <li>
+              <a href="/push" class="waves-effect"><i class="fa fa-bell fa-fw" aria-hidden="true"></i><span class="hide-menu">Notification</span></a>
+          </li>
+            </ul>
+            <div class="center p-20">
+              <form action="/logout-admin" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                  <button type="submit" class="btn btn-danger btn-block btn-rounded waves-effect waves-light">Logout</button>
+              </form>
+          </div>
+        </div>
+    </div>
+        <!-- Left navbar-header end -->
+        <!-- Page Content -->
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row bg-title">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Notification</h4> </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12"> 
+                        <ol class="breadcrumb">
+                            <li><a href="#">Dashboard</a></li>
+                            <li class="active">Notification</li>
+                        </ol>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Notification</h3> </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- <div class="modal fade" id="add_artist" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+                        <!-- <div class="modal-dialog" role="document"> -->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Send Notification</h5>
+                            </div>
+                            <div class="modal-body">
+                              <form method='post'  action="/admin-api/send-push-notifications" id="trigger-push-form"  enctype="multipart/form-data">
+                                <div class="form-group row">
+                                  <label class="col-sm-6 col-form-label">Title</label>
+                                  <div class="col-sm-6">
+                                    <input class="form-control" name="title" id="title" required>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-sm-6 col-form-label">body</label>
+                                  <div class="col-sm-6">
+                                    <textarea class="form-control" rows="1" cols="1" name="body" id="body" required></textarea>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-6 col-form-label">Image</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" name="title" id="img" required/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                      <button id="previewBtn" class="btn btn-success">Preview</button>
+                                      <img id="preview" src="#" alt="Preview" class="img-thumbnail"/>
+                                    </div>
+                                  </div>
+                                  <div class="form-group row">
+                                    <label class="col-sm-6 col-form-label">Push Link</label>
+                                    <div class="col-sm-6">
+                                        <input class="form-control" name="title" id="url" required/>
+                                    </div>
+                                  </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="submit" class="btn btn-success" id="send">Send</button>
+                            </div>
+                            </form>
+                          </div>
+                        </div>
+                      <!-- </div>
+                </div> -->
+            </div>
+            <!-- /.container-fluid -->
+            <footer class="footer text-center"> 2020 &copy; Musixcloud</footer>
+        </div>
+        <!-- /#page-wrapper -->
+    </div>
+    <script type="text/javascript">
+      var csrf_token = "{{ csrf_token() }}";
+    
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                  xhr.setRequestHeader("X-CSRFToken", csrf_token);
+              }
+          }
+      });
+    </script>
+    <!-- /#wrapper -->
+  <!-- Menu Plugin JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') }}"></script>
+  <!--slimscroll JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/jquery.slimscroll.js') }}"></script>
+  <!--Wave Effects -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/waves.js') }}"></script>
+  <!--Counter js -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/waypoints/lib/jquery.waypoints.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/counterup/jquery.counterup.min.js') }}"></script>
+  <!--Morris JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/raphael/raphael-min.js') }}"></script>
+ 
+  <!-- Custom Theme JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/custom.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/dashboard1.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='admin/js/script.js') }}"></script>
+    {%endblock%}

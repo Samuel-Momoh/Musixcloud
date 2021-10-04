@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musixcloud-Admin</title>
+    <link rel="icon" href="{{ url_for('static', filename='admin/plugins/images/logo.png') }}" type="image/png">
+    <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='admin/bootstrap/dist/css/bootstrap.min.css') }}" >
+
+    <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='admin/datatables/jquery.dataTables.min.css') }}" >
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='admin/plugins/bower_components/jquery/dist/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='admin/datatables/jquery.dataTables.js') }}"></script>
+
+<script type="text/javascript" src="{{ url_for('static', filename='admin/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+    <link rel="stylesheet"  type="text/css" href="{{ url_for('static', filename='admin/plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') }}" >
+    <link type="text/css" href="{{ url_for('static', filename='admin/plugins/bower_components/toast-master/css/jquery.toast.css') }}" >
+    <link type="text/css" src="{{ url_for('static', filename='admin/css/animate.css') }}" >
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='admin/css/style.css') }}">
+	<link rel="stylesheet" type="text/css" id="theme" href="{{ url_for('static', filename='admin/css/colors/blue-dark.css') }}">
+
+    
+
+</head>
+<body>
+{% block body %}
+
+{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+{% extends 'base.html'%}
+{% block body%}
+    <header>
+        <div class="logo"><a href="#">F<span class="tip">ERRY</span>MUZIC</a></div>
+        <div class="search"><input type="text" id="searchItem"><i class="fa fa-search" id="myBtn"></i></div>
+</header>
+<nav>
+    <ul>
+        <li><a href="/">TRENDING</a></li>
+        <li><a href="genre">GENRE</a></li>
+        <li><a href="songs">SONGS</a></li>
+        <li><a href="artist" class="active">ARTIST</a></li>
+    </ul>
+</nav>
+<div class="trending">
+    {% for row in data: %}
+    <div class="trendin-item">
+        <div class="item-image">
+            <img src="static/album-art/{{row.3}}" alt="">
+        </div>
+        <div class="details">
+            <div class="details-text">
+                <h2>{{row.1}}</h2>
+                <p>{{row.2}}</p>
+            </div>
+            <div class="click-group">
+            <a href="/artist/{{row.1}}"><div class="play-artist"><i class="fa fa-play"></i></div></a> 
+            </div>
+        </div>
+    </div>
+    {%endfor%}
+ 
+    <!-- end of flex -->
+</div>
+
+<footer>
+    <div class="icon">
+        <div class="icon-items"><i class="fa fa-facebook"></i></div> 
+       <div class="icon-items"><i class="fa fa-twitter"></i></div> 
+       <div class="icon-items"><i class="fa fa-instagram"></i></div>  
+    </div>
+    </footer>
+ <!-- The Modal -->
+ <div id="myModal" class="modal">
+    <!-- Preloader -->
+    <div id="loader-wrapper" >
+      <div id="loader"></div>
+  </div>
+     <!-- Modal content -->
+     <div class="modal-content" style="display: none;">
+       <div class="modal-header">
+           <div class="header-button close">
+              <i class="fa fa-close"></i>
+           </div>
+       </div>
+       <div class="search-query">
+          <div class="empty" style="display: none;"> 
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                  <path fill="#FF0066" d="M48.5,-63.4C59.2,-48.7,62,-30.1,64.6,-11.8C67.3,6.4,69.9,24.1,64.2,39.8C58.4,55.5,44.3,69.2,29.6,69.5C14.8,69.7,-0.5,56.6,-19,50.6C-37.5,44.5,-59.1,45.6,-64.2,37C-69.3,28.3,-57.8,10.1,-50.1,-4.4C-42.3,-19,-38.2,-29.8,-30.4,-45C-22.7,-60.2,-11.4,-79.8,3.7,-84.2C18.8,-88.7,37.7,-78,48.5,-63.4Z" transform="translate(100 100)" />
+                </svg>
+                <h2>No Such record found</h2>
+          </div>
+       </div>
+     </div>
+   
+   </div>  
+   <script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+  
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
+  </script>
+   <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" ></script>
+{%endblock%}

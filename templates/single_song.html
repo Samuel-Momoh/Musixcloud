@@ -1,0 +1,206 @@
+{% extends 'base.html'%}
+{% block body%}
+<style>
+	.content{
+ overflow: hidden;
+}
+</style>
+<header>
+  <div class="menu-button" id="menuBtn">
+    <i class="fa fa-bars"></i>
+</div>
+<div class="logo" id="logo">
+  <img src="/static/logo.png" alt="" srcset="" id="userImg" >
+ <span class="full">MusixCloud</span>
+</div>
+<div class="minsearchback" id="minsearchback"><i class="fa fa-chevron-left"></i></div>
+<div class="search" id="search"><input type="text" id="searchItem" placeholder="Enter Search..."><i class="fa fa-search" id="myBtn"></i></div>
+<div class="minsearch" id="minsearch"><i class="fa fa-search"></i></div>
+</header>
+<div class="container">
+  <div class="side-bar" id="sideBars">
+    <div class="app-buttons">
+     <a href="/"><div class="button home-icon"> </div></a>
+     <a href="/artist"> <div class="button artist-icon"></div></a>
+     <a href="/genre"><div class="button genre-icon"></div></a>
+     <a href="/songs"> <div class="button song-icon"></div></a>
+    </div>
+    <div class="social-media">
+     <!-- <a href="genre.html"> <div class="social-button fb-icon"></div></a>
+        <a href="genre.html"> <div class="social-button tw-icon"> </div></a>
+        <a href="genre.html"> <div class="social-button you-icon"></div></a> -->
+        <a href="/users/profile">  <div class="user-img">
+          {% if 'user' in session %}
+       <img src="{{session.get('user')['picture']}}" alt="" srcset="" id="userImg" >
+       <input type="hidden" style="height: 0px;width: 0px;" id="username" value="{{session.get('user')['email']}}"> 
+       {% else %}
+       <img src="/static/svg/user-profile-svgrepo-com (1).svg" alt="" srcset="" id="userImg" >
+       <input type="hidden" style="height: 0px;width: 0px;" id="username" > 
+       {% endif %}
+   </div></a> 
+   <div class="notification-button bell-icon" id="notify"></div>
+  </div>
+</div>
+   	<!-- Body Preloader -->
+		<div class="preloader-main"> 
+			<div class="loader-body">
+				<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+			</div>
+			
+		 </div>
+		<div class="content" id="content" style="display: none;">
+        <!-- <h3 class="tittle">Trending Songs <span class="new">New</span></h3> -->
+        <div class="single-playlist-container" id="blue-playlist-container" style="margin-top: 10px;">
+     <div id="amplitude-player">
+             	<!-- Left Side Player -->
+			  <div id="amplitude-left">
+				  <div class="play-display">
+				  <img data-amplitude-song-info="cover_art_url" class="album-art" id="image-art" />
+				  <div class="lyric-container" id="lyricer-conatianer" style="display: none;">
+					<img data-amplitude-song-info="cover_art_url" class="lyric-image"/>
+					<div id="lyricer">
+					</div>
+				  </div>
+
+				  <canvas id="mainCanvas" style="display: none;"></canvas>
+		<div class="amplitude-visualization" id="large-visualization"> </div>
+	  </div>
+         
+            <div id="player-left-bottom">
+              <div class="toggle-item">
+                <span data-amplitude-song-info="id" style="display: none;" id="songid"></span>
+              <div class="item"><span class="heart_player unlike" id="song_likes"><i class="fa fa-heart-o"></i><span id="likeCount"><span data-amplitude-song-info="like"></span></span></div>
+                <div class="item"><span><i class="fa fa-eye"></i><span data-amplitude-song-info="count"></span></span></div>
+                <div class="item"><span><i class="fa fa-download"></i><span data-amplitude-song-info="downloads"></span></span></div>
+                <div class="item player-tooltip" id="player-tooltip"><span><i class="fa fa-cog"></i></span><div class="tooltiptext">
+                  <div class="toolpititem" data-func="image-art">Album Art</div>
+                  <div class="toolpititem" data-func="lyricer-conatianer">Song Lyrics</div>
+                  <div class="toolpititem" data-func="mainCanvas">Song Visual</div>
+              </div>
+            </div>  
+              </div>
+						<div id="time-container">
+							<span class="current-time">
+								<span class="amplitude-current-minutes" ></span>:<span class="amplitude-current-seconds"></span>
+							</span>
+							<div id="progress-container">
+								<div class="amplitude-wave-form">
+
+                        </div>
+                <input type="range" class="amplitude-song-slider"/>
+								<progress id="song-played-progress" class="amplitude-song-played-progress"></progress>
+								<progress id="song-buffered-progress" class="amplitude-buffered-progress" value="0"></progress>
+							</div>
+							<span class="duration">
+								<span class="amplitude-duration-minutes"></span>:<span class="amplitude-duration-seconds"></span>
+							</span>
+						</div>
+
+						<div id="control-container">
+							<div id="repeat-container">
+								<div class="amplitude-repeat" id="repeat"></div>
+								<div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
+							</div>
+
+							<div id="central-control-container">
+								<div id="central-controls">
+									<div class="amplitude-prev" id="previous"></div>
+									<div class="amplitude-play-pause" id="play-pause"></div>
+									<div class="amplitude-next" id="next"></div>
+								</div>
+							</div>
+
+							<div id="volume-container">
+								<div class="volume-controls">
+									<div class="amplitude-mute amplitude-not-muted"></div>
+									<input type="range" class="amplitude-volume-slider"/>
+									<div class="ms-range-fix"></div>
+								</div>
+								<div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle-right"></div>
+							</div>
+						</div>
+
+						<div id="meta-container">
+							<span data-amplitude-song-info="name" class="song-name"></span>
+
+							<div class="song-artist-album">
+								<span data-amplitude-song-info="artist"></span>
+								<span data-amplitude-song-info="album"></span>
+							</div>
+						</div>
+					</div>
+        </div>
+        <div id="audio">
+        </div>
+				<!-- End Left Side Player -->
+            </div>
+            {% for row in songlist: %}
+           <div class="description">
+             <input type="hidden" value="{{row['id']}}" id="song">
+          <h1>{{row['artist']}}~{{row['title']}}</h1>
+          <div class="description-text">
+            <p> {{row['description']}}</p>
+            <!-- player instance -->
+            <div id="audio">
+  
+            </div>
+           
+              <div class="description-footer">
+                <div class="click-single">
+                <div class="share"data-clipboard-text="https://app.musixcloud.com/songs/{{row['id']}}"><i class="fa fa-share"></i>
+                  <span class="tooltiptext"> Link Copied!</span>
+                </div>
+                <a href="/static/songs/{{row['url']}}" download="{{row['title']}}" class="downloadSong" data-song="{{row['id']}}"> <div class="download-single" ><i class="fa fa-download"></i></div></a>
+              </div>
+              </div>
+          </div>
+          {%endfor%}
+          </div>
+          </div>
+<!-- End of content -->
+    </div>
+
+<!-- End of container -->
+</div>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Preloader -->
+  <div id="loader-wrapper" >
+    <div class="loader-body">
+      <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    </div>
+</div>
+   <!-- Modal content -->
+   <div class="modal-content" style="display: none;">
+     <div class="modal-header">
+         <div class="header-button close">
+            <i class="fa fa-close"></i>
+         </div>
+     </div>
+     <div class="search-query">
+        <div class="empty" style="display: none;"> 
+          <div class="not-found">
+
+          </div>
+              <h2>No Such record found</h2>
+        </div>
+     </div>
+   </div>
+ 
+ </div> 
+ <script type="text/javascript">
+  var csrf_token = "{{ csrf_token() }}";
+
+  $.ajaxSetup({
+      beforeSend: function(xhr, settings) {
+          if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrf_token);
+          }
+      }
+  });
+</script>
+ <script type="text/javascript" src="{{ url_for('static', filename='js/singleplayer.js') }}" ></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" ></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='js/like.js') }}" ></script>
+ <script type="text/javascript" src="{{ url_for('static', filename='webpush/main.js') }}" ></script>
+ {%endblock%}
