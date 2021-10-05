@@ -46,8 +46,9 @@
 		<div class="content" id="content"  style="display: none;">
         <!-- <h3 class="tittle">Home <span class="new">Song</span></h3> -->
         <div class="songs">
+            <input type="hidden"  value="{{state}}" id="hidden_val"/>
             {% for row in data: %}
-            <div class="song-item">
+            <div class="song-item" >
                 <div class="song-image">
                     <a href="/songs/{{row.0}}"><img src="static/album-art/{{row.8}}" alt="{{row.1}}"></a>
                 </div>

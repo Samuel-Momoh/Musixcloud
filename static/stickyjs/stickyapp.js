@@ -2,16 +2,26 @@ var run;
 var i = 0;
 $(document).ready(function()
 {
+var dataState = $('#hidden_val').val();
+
+console.log(dataState);
+if(dataState == 'None'){
+    return null
+}
+else
+{
 var player = $('#content').stickyAudioPlayer(
 {
-url:       'static/songs/Tasha_Cobbs_Leonard_-_Smilenicegospel.com.mp3',
+url:       $('.playBtn').data('link'),
 position:  'bottom',
-text:      'Tasha Cobbs - SMILE',
+text:      $('.playBtn').data('title'),
 volume:    40,
-image:     'static/album-art/tashacobbsleonard_smile-1286851716.jpg',
+image:     $('.playBtn').data('img'),
 repeat:    false
 }
 );
+}
+
 // Change songs
 $('.playBtn').click(function(e) {
     e.preventDefault(); 

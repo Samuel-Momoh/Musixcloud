@@ -50,6 +50,7 @@
     <div class="content" id="content">
         <h3 class="tittle">Trending Songs <span class="new">New</span></h3>
 <div class="trending">
+    <input type="hidden"  value="{{state}}" id="hidden_val"/>
     {% for row in data: %}
     <div class="trendin-item">
         <div class="item-image">
@@ -62,7 +63,7 @@
             </div>
             <div class="click">
                 <a href="static/songs/{{row.3}}" data-title="{{row.1}}-{{row.2}}" data-img="static/album-art/{{row.8}}" data-artist="{{row.2}}" data-name="{{row.1}}" data-genre="{{row.5}}" class="playBtn playbtnsvg" id="{{ loop.index-1 }}"> <div class="play"><div class="playarea"></div></div></a>
-              <a href="static/songs/{{row.3}}" download="{{row.2}}"> <div class="download downloadSong" data-song="{{row.0}}"><i class="fa fa-download"></i></div></a>
+              <a href="static/songs/{{row.3}}" download="{{row.2}}" data-link=static/songs/{{row.3}}> <div class="download downloadSong" data-song="{{row.0}}"><i class="fa fa-download"></i></div></a>
             </div>
         </div>
     </div>

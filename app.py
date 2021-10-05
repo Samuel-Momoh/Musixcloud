@@ -50,11 +50,7 @@ oauth.register(
 # Create a directory in a known location to save files to.
 uploads_dir_song = os.path.join('static/songs')
 uploads_dir_image = os.path.join('static/album-art')
-# My Profle Details
-# conn=sqlite3.connect("mscdb.db")
-# cursor=conn.cursor()
-# data=cursor.execute("SELECT * from profile")
-# profiles=data.fetchone()
+
 
 
 
@@ -64,8 +60,10 @@ uploads_dir_image = os.path.join('static/album-art')
 def index():
 	conn=sqlite3.connect("mscdb.db")
 	c=conn.cursor()
+	cur=conn.cursor()
 	data=c.execute("select rowid,* from music where status='active' ORDER by count + like + downloads DESC LIMIT 8")
-	return render_template("index.html",data=data)
+	state = cur.execute("select rowid,* from music where status='active' ORDER by count + like + downloads DESC LIMIT 8").fetchone()
+	return render_template("index.html",data=data, state=state)
 # Index page
 @app.route("/<artist>",methods=["POST","GET"])
 def direct_link(artist):
@@ -148,9 +146,10 @@ def playlist(artist):
 def songs():
 	conn=sqlite3.connect("mscdb.db")
 	c=conn.cursor()
-	# data=c.execute("SELECT * from music ORDER By ROWID DESC")
+	cur=conn.cursor()
 	data=c.execute("SELECT rowid,* from music where status='active' ORDER by ROWID DESC")
-	return render_template("song.html",data=data)
+	state = cur.execute("select rowid,* from music where status='active' ORDER by count + like + downloads DESC LIMIT 8").fetchone()
+	return render_template("song.html",data=data, state=state)
 #Song list page
 @app.route("/songs/<songIds>",methods=["POST","GET"])
 def single_song(songIds):
@@ -1027,3 +1026,5 @@ def songsnew_api():
 		}
 		songlist.append(mydic)
 	return jsonify(songlist)
+if __name__ == "__main__":
+	app.run(debug=true)
