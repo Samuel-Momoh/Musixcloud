@@ -260,5 +260,5 @@ Build the mobile app using react native
 Conclusion (<a href="#">SKIP</a>)
 </strong>
 <p>
-Thank you for going through this app, i hope you find it helpful and meets your need. To contribute to this project please feel free to submit a pull request. Should you be having problem with setting up the app feel free to send an mail to <a href="mailto:samueldan@live.com">samueldan@live.com</a>
+Thank you for going through this app, i hope you find it helpful and meets your need. To contribute to this project please feel free to submit a pull request. Should you be having problem with setting up the app feel free to send a mail to <a href="mailto:samueldan@live.com">samueldan@live.com</a>
 </p>
