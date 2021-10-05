@@ -40,8 +40,8 @@ CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 oauth = OAuth(app)
 oauth.register(
     name='google',
-	client_id='211692313962-iv1obdoaisa126uihig80l7kodkqjgqk.apps.googleusercontent.com',
-	client_secret='mp8Eomf9cgGBRzt2sfDdLFNi',
+	client_id='XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+	client_secret='XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
     server_metadata_url=CONF_URL,
     client_kwargs={
         'scope': 'openid email profile'
